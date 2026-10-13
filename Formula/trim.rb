@@ -5,13 +5,13 @@
 class Trim < Formula
   desc "AST-aware local LLM context optimization proxy"
   homepage "https://use-trim.com"
-  version "0.1.18"
+  version "0.1.19"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.18/trim_darwin_amd64.tar.gz"
-      sha256 "8f55d5ed6e00c8c4436d7be64c983e20b62464e55b854f8dce1dd6cce7a73d7d"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.19/trim_darwin_amd64.tar.gz"
+      sha256 "cd098b7ef9c7d93c372d9eadf1f62b4dcabba24772079e4142fdc2575942c0d0"
 
       define_method(:install) do
         bin.install "trim"
@@ -21,8 +21,8 @@ class Trim < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.18/trim_darwin_arm64.tar.gz"
-      sha256 "f6f7ea68dfdd0fbdcf8cacf7157843b69e7563cf07e8c7473680d713b8af3523"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.19/trim_darwin_arm64.tar.gz"
+      sha256 "a87e70176612a4aaf64bef54e7f15484e2e59845eb22701a2330684085ee4838"
 
       define_method(:install) do
         bin.install "trim"
@@ -35,8 +35,8 @@ class Trim < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.18/trim_linux_amd64.tar.gz"
-      sha256 "dd8523346e39fbb6f97641a8518730c4c483036b961027e7d6424cb2f36af96d"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.19/trim_linux_amd64.tar.gz"
+      sha256 "bd0fb65e354996f41aad62fcc4b6b5552d76e95732bd3a1595aa1a76f63d6900"
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
@@ -45,8 +45,8 @@ class Trim < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.18/trim_linux_arm64.tar.gz"
-      sha256 "92a802d30b3d744a7a7276301096de95183ffc15dee932c7c544b736fbdeaad9"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.19/trim_linux_arm64.tar.gz"
+      sha256 "3a4fcc6ed92f69e6e07b23600c4740c03fcf6ac90053a4c8e7d73f008a8afc04"
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
