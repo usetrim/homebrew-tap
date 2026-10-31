@@ -5,13 +5,13 @@
 class Trim < Formula
   desc "AST-aware local LLM context optimization proxy"
   homepage "https://use-trim.com"
-  version "0.1.24"
+  version "0.1.25"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_darwin_amd64.tar.gz"
-      sha256 "e87397d6e4767f13a5e5be018a1bd5cd87c1029919965d1c2c855239816b66be"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.25/trim_darwin_amd64.tar.gz"
+      sha256 "8211e17b2b55f5ee4c392acd1479e028996ec282d71784b530e4d4d48c0774a4"
 
       define_method(:install) do
         bin.install "trim"
@@ -23,8 +23,8 @@ class Trim < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_darwin_arm64.tar.gz"
-      sha256 "50200733b42134345c125b529ab417b58c1969299d3468673b73a766aaf81295"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.25/trim_darwin_arm64.tar.gz"
+      sha256 "c2b781b402bbdcd618b437bdb03fba35028bbde4f05ef03e4e9c143ba7343ebb"
 
       define_method(:install) do
         bin.install "trim"
@@ -39,8 +39,8 @@ class Trim < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_linux_amd64.tar.gz"
-      sha256 "eb73377cf952e88e88099a34d6a5ce00041aa502eba753e2875a58a6a316a481"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.25/trim_linux_amd64.tar.gz"
+      sha256 "baa30849700367d05299f7c571a74e727dab668ef8d4597565f44c2ae60fb3b8"
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
@@ -51,8 +51,8 @@ class Trim < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_linux_arm64.tar.gz"
-      sha256 "07b2415d9b4fb16bc9054421c485473d9aa5be78e91c68e39d522bc0d89a68b0"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.25/trim_linux_arm64.tar.gz"
+      sha256 "e3a72dc527ec176eff5a76d2b89e725ca334ee1a3463bb618f84af0f512bc1bb"
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
@@ -66,11 +66,12 @@ class Trim < Formula
 
   def caveats
     <<~EOS
-      Deep Mode uses Microsoft LLMLingua locally (not on Render).
-      Preferred: place trim-deep next to trim, or set TRIM_OPTIMIZER_BIN.
-      Fallback: trim compress --bootstrap then trim compress file.txt --deep
+      Deep Mode uses Microsoft LLMLingua on this Mac only (not Trim cloud).
+      brew does not pip-install llmlingua. Once per machine:
+        trim compress --bootstrap
+      Success prints a green banner; then trim compress file.txt --deep or trim start.
+      Preferred frozen binary: place trim-deep next to trim, or set TRIM_OPTIMIZER_BIN.
       Set TRIM_OPTIMIZER_PY if optimizer.py is not next to the trim binary.
-      Optional freeze: scripts/build-deep-optimizer.sh (PyInstaller).
     EOS
   end
 
