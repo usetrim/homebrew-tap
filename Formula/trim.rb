@@ -5,53 +5,61 @@
 class Trim < Formula
   desc "AST-aware local LLM context optimization proxy"
   homepage "https://use-trim.com"
-  version "0.1.23"
+  version "0.1.24"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.23/trim_darwin_amd64.tar.gz"
-      sha256 "a908ea6f5d09314ef4ea43c58de757bd9087f2f8dccfae132faeb0090f686a0c"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_darwin_amd64.tar.gz"
+      sha256 "e87397d6e4767f13a5e5be018a1bd5cd87c1029919965d1c2c855239816b66be"
 
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
-        doc.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
-        doc.install "requirements.txt" if File.exist?("requirements.txt")
+        # Keep requirements beside optimizer.py so `trim compress --bootstrap` finds them
+        # (Bootstrap looks next to ScriptPath; doc/ would break Deep pip install).
+        bin.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
+        bin.install "requirements.txt" if File.exist?("requirements.txt")
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.23/trim_darwin_arm64.tar.gz"
-      sha256 "c0c9f8dc5319d705ebdf7f2d2195d5e9740cbabb13efaf63af3edf9276ba6d00"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_darwin_arm64.tar.gz"
+      sha256 "50200733b42134345c125b529ab417b58c1969299d3468673b73a766aaf81295"
 
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
-        doc.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
-        doc.install "requirements.txt" if File.exist?("requirements.txt")
+        # Keep requirements beside optimizer.py so `trim compress --bootstrap` finds them
+        # (Bootstrap looks next to ScriptPath; doc/ would break Deep pip install).
+        bin.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
+        bin.install "requirements.txt" if File.exist?("requirements.txt")
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.23/trim_linux_amd64.tar.gz"
-      sha256 "ce2a9591a033b0043433af8f6013832215a8b86a843b5da9d9551e3b5873f89d"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_linux_amd64.tar.gz"
+      sha256 "eb73377cf952e88e88099a34d6a5ce00041aa502eba753e2875a58a6a316a481"
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
-        doc.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
-        doc.install "requirements.txt" if File.exist?("requirements.txt")
+        # Keep requirements beside optimizer.py so `trim compress --bootstrap` finds them
+        # (Bootstrap looks next to ScriptPath; doc/ would break Deep pip install).
+        bin.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
+        bin.install "requirements.txt" if File.exist?("requirements.txt")
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/usetrim/trim/releases/download/v0.1.23/trim_linux_arm64.tar.gz"
-      sha256 "ab0ae39c97a1697023bfbd98bf708616da9ea456ff491413a5810132c75dabe0"
+      url "https://github.com/usetrim/trim/releases/download/v0.1.24/trim_linux_arm64.tar.gz"
+      sha256 "07b2415d9b4fb16bc9054421c485473d9aa5be78e91c68e39d522bc0d89a68b0"
       define_method(:install) do
         bin.install "trim"
         bin.install "optimizer.py" if File.exist?("optimizer.py")
-        doc.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
-        doc.install "requirements.txt" if File.exist?("requirements.txt")
+        # Keep requirements beside optimizer.py so `trim compress --bootstrap` finds them
+        # (Bootstrap looks next to ScriptPath; doc/ would break Deep pip install).
+        bin.install "requirements-deep.txt" if File.exist?("requirements-deep.txt")
+        bin.install "requirements.txt" if File.exist?("requirements.txt")
       end
     end
   end
@@ -60,7 +68,7 @@ class Trim < Formula
     <<~EOS
       Deep Mode uses Microsoft LLMLingua locally (not on Render).
       Preferred: place trim-deep next to trim, or set TRIM_OPTIMIZER_BIN.
-      Fallback: trim compress --bootstrap then trim compress file.txt --mode deep
+      Fallback: trim compress --bootstrap then trim compress file.txt --deep
       Set TRIM_OPTIMIZER_PY if optimizer.py is not next to the trim binary.
       Optional freeze: scripts/build-deep-optimizer.sh (PyInstaller).
     EOS
